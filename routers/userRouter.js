@@ -1,7 +1,7 @@
 require('../config/passport');
 
-const UserController = require('../controllers/user');
-const AuthController = require('../controllers/auth');
+const UserController = require('../controllers/user.controller');
+const AuthController = require('../controllers/auth.controller');
 const express = require('express');
 const passport = require('passport');
 

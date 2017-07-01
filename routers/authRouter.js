@@ -1,13 +1,13 @@
 require('../config/passport');
 
-const AuthenticationController = require('../controllers/auth');
+const AuthenticationController = require('../controllers/auth.controller');
 const express = require('express');
 const passport = require('passport');
 
 // Middleware to require login/auth
 const requireLogin = passport.authenticate('local', { session: false });
 
-module.exports = function() {
+module.exports = () => {
     // Initializing route groups
     const authRoutes = express.Router();
 

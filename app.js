@@ -11,6 +11,12 @@ const userRouter = require('./routers/userRouter')();
 // Database Connection
 mongoose.connect(config.database);
 
+if (process.env.ENV === 'test') {
+    // TODO
+} else {
+    mongoose.connect(config.database);
+}
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
