@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "eslint": "^4.1.1",
+    "express-routemap": "^1.1.0",
     "gulp-env": "^0.4.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-mocha": "^4.3.1",

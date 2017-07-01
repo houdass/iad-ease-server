@@ -1,7 +1,6 @@
 const gulp = require('gulp'),
     $ = require('gulp-load-plugins')({ lazy: true });
 
-
 gulp.task('start', () => {
     log('*** Start nodemon ***');
     $.nodemon({
@@ -25,9 +24,7 @@ gulp.task('test', () => {
         .pipe($.mocha());
 });
 
-
 gulp.watch(['**/*.spec.js', '**/*.int.js'], ['test']);
-
 
 // Reusable functions
 

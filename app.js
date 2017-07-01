@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const config = require('./config/main');
 const authRouter = require('./routers/authRouter')();
 const userRouter = require('./routers/userRouter')();
+const routeMap = require('express-routemap');
 
 // Database Connection
 mongoose.connect(config.database);
@@ -21,7 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Start the server
-app.listen(config.port);
+app.listen(config.port, () => {
+    // Print all available routes
+    routeMap(app);
+});
 console.log('Your server is running on port ' + config.port + '.');
 
 // Setting up basic middleware for all Express requests
