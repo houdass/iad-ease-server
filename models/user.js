@@ -16,15 +16,14 @@ const UserSchema = new Schema({
             type: String,
             required: true
         },
-        profile: {
-            firstName: { type: String },
-            lastName: { type: String }
-        },
+        firstName: { type: String },
+        lastName: { type: String },
         role: {
             type: String,
-            enum: ['Member', 'Client', 'Owner', 'Admin'],
-            default: 'Member'
+            enum: ['member', 'client', 'owner', 'admin'],
+            default: 'member'
         },
+        permissions: [String],
         resetPasswordToken: { type: String },
         resetPasswordExpires: { type: Date }
     },

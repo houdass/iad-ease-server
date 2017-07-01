@@ -12,7 +12,7 @@ module.exports = () => {
     const userRoutes = express.Router();
 
     // Get users route
-    userRoutes.get('/', requireAuth, AuthController.roleAuthorization(['Admin']), UserController.get);
+    userRoutes.get('/', requireAuth, AuthController.hasAuthorization('admin', 'can.get.users'), UserController.get);
 
     return userRoutes;
 };

@@ -1,7 +1,8 @@
 require('crypto');
 const jwt = require('jsonwebtoken'),
     User = require('../models/user'),
-    config = require('../config/main');
+    config = require('../config/main'),
+    _ = require('lodash');
 
 function generateToken(user) {
     return jwt.sign(user, config.secret, {
@@ -13,10 +14,11 @@ function generateToken(user) {
 function setUserInfo(request) {
     return {
         _id: request._id,
-        firstName: request.profile.firstName,
-        lastName: request.profile.lastName,
+        firstName: request.firstName,
+        lastName: request.lastName,
         email: request.email,
-        role: request.role
+        role: request.role,
+        permissions: request.permissions
     };
 }
 
@@ -45,6 +47,7 @@ exports.register = function(req, res, next) {
     const lastName = req.body.lastName;
     const password = req.body.password;
     const role = req.body.role;
+    const permissions = req.body.permissions;
 
     // Return error if no email provided
     if (!email) {
@@ -73,8 +76,10 @@ exports.register = function(req, res, next) {
         let user = new User({
             email,
             password,
-            profile: { firstName, lastName },
-            role
+            firstName,
+            lastName,
+            role,
+            permissions
         });
 
         user.save((err, user)  => {
@@ -96,12 +101,14 @@ exports.register = function(req, res, next) {
 };
 
 //========================================
-// Authorization Middleware
+// Authorizations Middleware
 //========================================
 
-// Role authorization check
-exports.roleAuthorization = function(roles) {
+// Role/Permissions authorization check
+exports.hasAuthorization = function(roles, permissions) {
 
+    roles = [].concat([], roles)
+    permissions = [].concat([], permissions)
     return function(req, res, next) {
         let user = req.user;
 
@@ -112,7 +119,7 @@ exports.roleAuthorization = function(roles) {
                 return next(err);
             }
 
-            if (roles.indexOf(foundUser.role) > -1){
+            if ((roles.indexOf(foundUser.role) > -1) || (_.intersection(permissions, foundUser.permissions).length > 0)) {
                 return next();
             }
 
@@ -121,4 +128,5 @@ exports.roleAuthorization = function(roles) {
         });
     };
 };
+
 
