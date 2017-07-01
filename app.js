@@ -7,7 +7,10 @@ const mongoose = require('mongoose');
 const config = require('./config/main');
 const authRouter = require('./routers/authRouter')();
 const userRouter = require('./routers/userRouter')();
+const chatRouter = require('./routers/chatRouter')();
 const routeMap = require('express-routemap');
+const socketio = require('socket.io');
+const socketEvents = require('./socketEvents');
 
 // Database Connection
 mongoose.connect(config.database);
@@ -16,16 +19,22 @@ if (process.env.ENV === 'test') {
     // TODO
 } else {
     mongoose.connect(config.database);
+
+    // Start the server
+    const server = app.listen(config.port, () => {
+        // Print all available routes
+        routeMap(app);
+    });
+
+    const io = socketio.listen(server);
+
+    socketEvents(io);
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Start the server
-app.listen(config.port, () => {
-    // Print all available routes
-    routeMap(app);
-});
+
 console.log('Your server is running on port ' + config.port + '.');
 
 // Setting up basic middleware for all Express requests
@@ -47,3 +56,4 @@ app.use('/api', apiRoutes);
 // Set auth routers as subgroup/middleware to other routers
 apiRoutes.use('/auth', authRouter);
 apiRoutes.use('/users', userRouter);
+apiRoutes.use('/chat', chatRouter);
