@@ -21,6 +21,6 @@ _sudo npm install apidoc -g_
 
 **Available commands :**
 
-_npm start : _ Run the project
-_npm test : _ Run tests
-_npm apidoc : _ Generate the api doc
+- _npm start :_ Run the project
+- _npm test :_ Run tests
+- _npm apidoc :_ Generate the api doc
