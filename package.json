@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "gulp start",
-    "test": "gulp test"
+    "test": "gulp test",
+    "apidoc": "apidoc -i routers/ -o public/"
   },
   "keywords": [],
   "author": "Youness Houdass",
@@ -15,6 +16,7 @@
     "body-parser": "^1.17.2",
     "crypto": "0.0.3",
     "express": "^4.15.3",
+    "express-api-doc": "0.0.11",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "jsonwebtoken": "^7.4.1",
@@ -27,12 +29,16 @@
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
+    "apidoc": "^0.17.6",
+    "browser-sync": "^2.18.12",
     "eslint": "^4.1.1",
-    "express-routemap": "^1.1.0",
+    "gulp": "^3.9.1",
+    "gulp-apidoc": "^0.2.6",
     "gulp-env": "^0.4.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-mocha": "^4.3.1",
     "gulp-util": "^3.0.8",
+    "node-notifier": "^5.1.2",
     "should": "^11.2.1",
     "sinon": "^2.3.6"
   }

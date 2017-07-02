@@ -13,7 +13,14 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 module.exports = () => {
     const userRoutes = express.Router();
 
-    // Get users route
+    /**
+     * @api {get} users/ Get all users
+     * @apiName GetUsers
+     * @apiGroup User
+     *
+     * @apiSuccess {Array} List of users.
+     */
+
     userRoutes.get('/', requireAuth, AuthController.hasAuthorization(ROLES.ADMIN, PERMISSIONS.READ_USERS), UserController.get);
 
     return userRoutes;
