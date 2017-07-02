@@ -55,7 +55,7 @@ gulp.task('browser-sync', ['apidoc'], () => {
 
 // Watchers
 gulp.watch(['**/*.spec.js', '**/*.int.js'], ['test']);
-gulp.watch('routers/*.js').on('change', browserSync.reload);
+gulp.watch(['./routers/**/*.js'], ['apidoc']);
 
 // Reusable functions
 
@@ -69,30 +69,13 @@ function notify(options) {
 }
 
 function startBrowserSync() {
-    /*if (browserSync.active) {
-     return;
-     }
+    if (browserSync.active) {
+        return;
+    }
 
-     const options = {
-     proxy: 'localhost:' + 8000,
-     port: 8000,
-     files: './routers/*.*',
-     ghostMode: {
-     clicks: true,
-     location: false,
-     forms: true,
-     scroll: true
-     },
-     injectChanges: true,
-     logFileChanges: true,
-     logLevel: 'debug',
-     notify: true,
-     reloadDelay: 1000
-     };
-
-     browserSync(options);*/
     browserSync.init({
         port : 3000,
+        files: 'public/index.html',
         server: {
             baseDir: './public'
         }
