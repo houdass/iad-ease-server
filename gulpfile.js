@@ -1,7 +1,8 @@
 const gulp = require('gulp'),
     exec = require('child_process').exec,
     browserSync = require('browser-sync').create(),
-    $ = require('gulp-load-plugins')({ lazy: true });
+    $ = require('gulp-load-plugins')({ lazy: true }),
+    config = require('./config/main');
 
 gulp.task('start', ['apidoc'], () => {
     log('*** Start Project ***');
@@ -9,7 +10,7 @@ gulp.task('start', ['apidoc'], () => {
         script: './app.js',
         ext: 'js',
         env: {
-            PORT: 8000
+            PORT: config.portNodemon
         },
         ignore: ['./node_modules/**']
     })
@@ -43,16 +44,6 @@ gulp.task('apidoc', (cb) => {
     });
 });
 
-// Static server
-gulp.task('browser-sync', ['apidoc'], () => {
-    browserSync.init({
-        port : 8000,
-        server: {
-            baseDir: './'
-        }
-    });
-});
-
 // Watchers
 gulp.watch(['**/*.spec.js', '**/*.int.js'], ['test']);
 gulp.watch(['./routers/**/*.js'], ['apidoc']);
@@ -74,7 +65,7 @@ function startBrowserSync() {
     }
 
     browserSync.init({
-        port : 3000,
+        port : config.portBrowserSync,
         files: 'public/index.html',
         server: {
             baseDir: './public'

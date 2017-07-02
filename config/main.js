@@ -4,5 +4,7 @@ module.exports = {
     // Database connection information
     'database': 'mongodb://localhost/iad',
     // Setting port for server
-    'port': process.env.PORT || 3000
+    'port': process.env.PORT || 3030,
+    'portBrowserSync': 3000,
+    'portNodemon': 8000
 };
